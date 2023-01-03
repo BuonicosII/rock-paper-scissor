@@ -1,4 +1,6 @@
 //una funzione che restituisce carta sasso forbici per il computer
+let playerScore = 0;
+let computerScore = 0;
 
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * (3 - 1 + 1) + 1);
@@ -26,25 +28,64 @@ function playRound() {
 
     switch(true) {
         case (playerSelection !== "sasso" && playerSelection !== "forbici" && playerSelection !== "carta"):
-            return "Inserisci una delle tre variabili possibili";
+            console.log("Inserisci una delle tre variabili possibili");
             break;
 
         case (playerSelection === "sasso" && computerSelection === "forbici"):
         case (playerSelection === "forbici" && computerSelection === "carta"):
         case (playerSelection === "carta" && computerSelection === "sasso"):
-            return "Hai vinto!";
+            console.log("Hai vinto!");
+            return playerScore += 1;
             break;
         
         case (playerSelection === "sasso" && computerSelection === "carta"):
         case (playerSelection === "carta" && computerSelection === "forbici"):
         case (playerSelection === "forbici" && computerSelection === "sasso"):
-            return "Hai perso!";
+            console.log("Hai perso!");
+            return computerScore += 1;
             break;
         
         default:
-            return "Pareggio!"
+            console.log("Pareggio!");
+            return "Nessun punteggio";
     }
+
 }
-console.log(playRound())
+
+
+function game() {
+
+for (let i = 0; i < 5; i++) {
+        playRound();
+        console.log("PUNTEGGIO");
+        console.log("Tu", playerScore);
+        console.log("CPU", computerScore);
+        }
+
+if (playerScore > computerScore) {
+    console.log("Hai sconfitto il computer: complimenti!");
+    console.log("PUNTEGGIO FINALE");
+    console.log("Tu", playerScore);
+    console.log("CPU", computerScore);
+} else if (playerScore < computerScore) {
+    console.log("Il computer ti ha ownato, fai schifo!");
+    console.log("PUNTEGGIO FINALE");
+    console.log("Tu", playerScore);
+    console.log("CPU", computerScore);
+} else {
+    console.log("Pareggio!");
+    console.log("PUNTEGGIO FINALE");
+    console.log("Tu", playerScore);
+    console.log("CPU", computerScore);
+}
+
+}
+
+console.log(game())
+
+    
+
+
+
 //funzione gioco
 //5 round e poi dichiara un vincitore
