@@ -1,6 +1,15 @@
 
 let playerScore = 0;
+let playerScoreBox = document.querySelector('#playerScore');
+let playerScoreDisplay = document.createElement('p');
+playerScoreDisplay.textContent = `${playerScore}`;
+playerScoreBox.appendChild(playerScoreDisplay);
+
 let computerScore = 0;
+let computerScoreBox = document.querySelector('#computerScore');
+let computerScoreDisplay = document.createElement('p');
+computerScoreDisplay.textContent = `${computerScore}`;
+computerScoreBox.appendChild(computerScoreDisplay);
 
 //una funzione che restituisce carta sasso forbici per il computer
 function getComputerChoice() {
@@ -26,14 +35,22 @@ function playRound(playerSelection) {
         case (playerSelection === "forbici" && computerSelection === "carta"):
         case (playerSelection === "carta" && computerSelection === "sasso"):
             console.log("Hai vinto!");
-            return playerScore += 1;
+            playerScore += 1;
+            playerScoreDisplay.textContent = `${playerScore}`;
+            playerScoreBox.removeChild(playerScoreDisplay);
+            playerScoreBox.appendChild(playerScoreDisplay);
+            return;
             break;
         
         case (playerSelection === "sasso" && computerSelection === "carta"):
         case (playerSelection === "carta" && computerSelection === "forbici"):
         case (playerSelection === "forbici" && computerSelection === "sasso"):
             console.log("Hai perso!");
-            return computerScore += 1;
+            computerScore += 1;
+            computerScoreDisplay.textContent = `${computerScore}`;
+            computerScoreBox.removeChild(computerScoreDisplay);
+            computerScoreBox.appendChild(computerScoreDisplay);
+            return;
             break;
         
         default:
@@ -46,39 +63,30 @@ function playRound(playerSelection) {
 //una funzione gioco che chiama 5 volte la funzione round e tiene traccia del punteggio
 //decretando il vincitore
 
-function game() {
+function game(playerSelection) {
+        playRound(playerSelection);
 
-for (let i = 0; i < 5; i++) {
-        playRound();
-        console.log("PUNTEGGIO");
-        console.log("Tu", playerScore);
-        console.log("CPU", computerScore);
-        }
-
-if (playerScore > computerScore) {
+if (playerScore === 5) {
     console.log("Hai sconfitto il computer: complimenti!");
     console.log("PUNTEGGIO FINALE");
     console.log("Tu", playerScore);
     console.log("CPU", computerScore);
-} else if (playerScore < computerScore) {
+    return;
+} else if (computerScore === 5) {
     console.log("Il computer ti ha ownato, fai schifo!");
     console.log("PUNTEGGIO FINALE");
     console.log("Tu", playerScore);
     console.log("CPU", computerScore);
-} else {
-    console.log("Pareggio!");
-    console.log("PUNTEGGIO FINALE");
-    console.log("Tu", playerScore);
-    console.log("CPU", computerScore);
+    return;
 }
-
 }
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', function (e) {
         const playerSelection = (`${e.target.id}`);
-        playRound(playerSelection);
+        game(playerSelection);
+        let playerScoreBox = document.querySelector('#playerScore');
     }
     );
 });
