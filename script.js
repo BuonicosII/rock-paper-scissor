@@ -1,7 +1,8 @@
-//una funzione che restituisce carta sasso forbici per il computer
+
 let playerScore = 0;
 let computerScore = 0;
 
+//una funzione che restituisce carta sasso forbici per il computer
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * (3 - 1 + 1) + 1);
     if (randomChoice === 1) {
@@ -13,24 +14,14 @@ function getComputerChoice() {
     }
 }
 
-//una funzione round che contiene
-//variabile sasso carta forbice da chiedere all'utente (prompt etc) -> case insensitive
-//variabile sasso carta forbice computer
-//condizioni di vittoria computer
-//condizioni di vittoria utente
-//condizioni di pareggio
-//tre messaggi
+//funzione round che chiede all'utente di scegliere sasso carta forbici,
+//e confronta con la scelta del computer
 
-function playRound() {
-    let askPlayer = prompt("Sasso, carta o forbici?", " ");
-    const playerSelection = (String(askPlayer)).toLowerCase();
+function playRound(playerSelection) {
+
     const computerSelection = getComputerChoice();
 
     switch(true) {
-        case (playerSelection !== "sasso" && playerSelection !== "forbici" && playerSelection !== "carta"):
-            console.log("Inserisci una delle tre variabili possibili");
-            break;
-
         case (playerSelection === "sasso" && computerSelection === "forbici"):
         case (playerSelection === "forbici" && computerSelection === "carta"):
         case (playerSelection === "carta" && computerSelection === "sasso"):
@@ -52,6 +43,8 @@ function playRound() {
 
 }
 
+//una funzione gioco che chiama 5 volte la funzione round e tiene traccia del punteggio
+//decretando il vincitore
 
 function game() {
 
@@ -81,11 +74,11 @@ if (playerScore > computerScore) {
 
 }
 
-console.log(game())
-
-    
-
-
-
-//funzione gioco
-//5 round e poi dichiara un vincitore
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', function (e) {
+        const playerSelection = (`${e.target.id}`);
+        playRound(playerSelection);
+    }
+    );
+});
