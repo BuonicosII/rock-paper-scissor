@@ -11,6 +11,8 @@ let computerScoreDisplay = document.createElement('p');
 computerScoreDisplay.textContent = `${computerScore}`;
 computerScoreBox.appendChild(computerScoreDisplay);
 
+let finalResultBox = document.querySelector('#finalResult');
+
 //una funzione che restituisce carta sasso forbici per il computer
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * (3 - 1 + 1) + 1);
@@ -67,26 +69,73 @@ function game(playerSelection) {
         playRound(playerSelection);
 
 if (playerScore === 5) {
-    console.log("Hai sconfitto il computer: complimenti!");
-    console.log("PUNTEGGIO FINALE");
-    console.log("Tu", playerScore);
-    console.log("CPU", computerScore);
+
+    let displayMessage = document.createElement('p');
+    displayMessage.textContent = 'HAI VINTO!';
+    finalResultBox.appendChild(displayMessage);
+
+    let newGameButton = document.createElement('button');
+    newGameButton.textContent = 'Nuova partita';
+    newGameButton.setAttribute('id', "newgamebutton");
+    finalResultBox.appendChild(newGameButton);
+
+    newGameButton.addEventListener('click', () => {
+        playerScore = 0;
+        computerScore = 0;
+
+        playerScoreDisplay.textContent = `${playerScore}`;
+        playerScoreBox.removeChild(playerScoreDisplay);
+        playerScoreBox.appendChild(playerScoreDisplay);
+
+        computerScoreDisplay.textContent = `${computerScore}`;
+        computerScoreBox.removeChild(computerScoreDisplay);
+        computerScoreBox.appendChild(computerScoreDisplay);
+
+        finalResultBox.removeChild(displayMessage);
+        finalResultBox.removeChild(newGameButton);
+    });
+
     return;
+
 } else if (computerScore === 5) {
-    console.log("Il computer ti ha ownato, fai schifo!");
-    console.log("PUNTEGGIO FINALE");
-    console.log("Tu", playerScore);
-    console.log("CPU", computerScore);
+
+    let displayMessage = document.createElement('p');
+    displayMessage.textContent = 'HAI PERSO!';
+    finalResultBox.appendChild(displayMessage);
+
+    let newGameButton = document.createElement('button');
+    newGameButton.textContent = 'Nuova partita';
+    newGameButton.setAttribute('id', "newgamebutton");
+    finalResultBox.appendChild(newGameButton);
+
+    newGameButton.addEventListener('click', () => {
+        playerScore = 0;
+        computerScore = 0;
+
+        playerScoreDisplay.textContent = `${playerScore}`;
+        playerScoreBox.removeChild(playerScoreDisplay);
+        playerScoreBox.appendChild(playerScoreDisplay);
+
+        computerScoreDisplay.textContent = `${computerScore}`;
+        computerScoreBox.removeChild(computerScoreDisplay);
+        computerScoreBox.appendChild(computerScoreDisplay);
+
+        finalResultBox.removeChild(displayMessage);
+        finalResultBox.removeChild(newGameButton);
+    });
+
     return;
 }
 }
 
-const buttons = document.querySelectorAll('button');
+const buttons = document.querySelectorAll('.scelta');
 buttons.forEach((button) => {
     button.addEventListener('click', function (e) {
         const playerSelection = (`${e.target.id}`);
         game(playerSelection);
-        let playerScoreBox = document.querySelector('#playerScore');
     }
     );
 });
+
+//const nuovaPartita = document.querySelector('#newgamebutton');
+//nuovaPartita.
