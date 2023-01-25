@@ -1,0 +1,36 @@
+h1 {
+    text-align: center;
+}
+
+.ui {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;   
+    width: 600px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;    
+    width: 200px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#playerScore, #computerScore {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#finalResult {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+}

@@ -12,6 +12,9 @@ computerScoreDisplay.textContent = `${computerScore}`;
 computerScoreBox.appendChild(computerScoreDisplay);
 
 let finalResultBox = document.querySelector('#finalResult');
+let displayMessage = document.createElement('p');
+finalResultBox.appendChild(displayMessage);
+let newGameButton = document.createElement('button');
 
 //una funzione che restituisce carta sasso forbici per il computer
 function getComputerChoice() {
@@ -36,7 +39,7 @@ function playRound(playerSelection) {
         case (playerSelection === "sasso" && computerSelection === "forbici"):
         case (playerSelection === "forbici" && computerSelection === "carta"):
         case (playerSelection === "carta" && computerSelection === "sasso"):
-            console.log("Hai vinto!");
+            displayMessage.textContent = 'Hai vinto';
             playerScore += 1;
             playerScoreDisplay.textContent = `${playerScore}`;
             playerScoreBox.removeChild(playerScoreDisplay);
@@ -47,7 +50,7 @@ function playRound(playerSelection) {
         case (playerSelection === "sasso" && computerSelection === "carta"):
         case (playerSelection === "carta" && computerSelection === "forbici"):
         case (playerSelection === "forbici" && computerSelection === "sasso"):
-            console.log("Hai perso!");
+            displayMessage.textContent = 'Hai perso';
             computerScore += 1;
             computerScoreDisplay.textContent = `${computerScore}`;
             computerScoreBox.removeChild(computerScoreDisplay);
@@ -56,8 +59,7 @@ function playRound(playerSelection) {
             break;
         
         default:
-            console.log("Pareggio!");
-            return "Nessun punteggio";
+           displayMessage.textContent = 'Pareggio';
     }
 
 }
@@ -70,11 +72,9 @@ function game(playerSelection) {
 
 if (playerScore === 5) {
 
-    let displayMessage = document.createElement('p');
     displayMessage.textContent = 'HAI VINTO!';
-    finalResultBox.appendChild(displayMessage);
+    //finalResultBox.appendChild(displayMessage);
 
-    let newGameButton = document.createElement('button');
     newGameButton.textContent = 'Nuova partita';
     newGameButton.setAttribute('id', "newgamebutton");
     finalResultBox.appendChild(newGameButton);
@@ -82,6 +82,7 @@ if (playerScore === 5) {
     newGameButton.addEventListener('click', () => {
         playerScore = 0;
         computerScore = 0;
+        displayMessage.textContent = '';
 
         playerScoreDisplay.textContent = `${playerScore}`;
         playerScoreBox.removeChild(playerScoreDisplay);
@@ -91,7 +92,7 @@ if (playerScore === 5) {
         computerScoreBox.removeChild(computerScoreDisplay);
         computerScoreBox.appendChild(computerScoreDisplay);
 
-        finalResultBox.removeChild(displayMessage);
+        //finalResultBox.removeChild(displayMessage);
         finalResultBox.removeChild(newGameButton);
     });
 
@@ -99,11 +100,9 @@ if (playerScore === 5) {
 
 } else if (computerScore === 5) {
 
-    let displayMessage = document.createElement('p');
     displayMessage.textContent = 'HAI PERSO!';
-    finalResultBox.appendChild(displayMessage);
+    //finalResultBox.appendChild(displayMessage);
 
-    let newGameButton = document.createElement('button');
     newGameButton.textContent = 'Nuova partita';
     newGameButton.setAttribute('id', "newgamebutton");
     finalResultBox.appendChild(newGameButton);
@@ -111,6 +110,7 @@ if (playerScore === 5) {
     newGameButton.addEventListener('click', () => {
         playerScore = 0;
         computerScore = 0;
+        displayMessage.textContent = '';
 
         playerScoreDisplay.textContent = `${playerScore}`;
         playerScoreBox.removeChild(playerScoreDisplay);
@@ -120,7 +120,7 @@ if (playerScore === 5) {
         computerScoreBox.removeChild(computerScoreDisplay);
         computerScoreBox.appendChild(computerScoreDisplay);
 
-        finalResultBox.removeChild(displayMessage);
+        //finalResultBox.removeChild(displayMessage);
         finalResultBox.removeChild(newGameButton);
     });
 
@@ -132,6 +132,20 @@ const buttons = document.querySelectorAll('.scelta');
 buttons.forEach((button) => {
     button.addEventListener('click', function (e) {
         const playerSelection = (`${e.target.id}`);
+        if (computerScore === 5 || playerScore === 5) {
+        playerScore = 0;
+        computerScore = 0;
+
+        playerScoreDisplay.textContent = `${playerScore}`;
+        playerScoreBox.removeChild(playerScoreDisplay);
+        playerScoreBox.appendChild(playerScoreDisplay);
+
+        computerScoreDisplay.textContent = `${computerScore}`;
+        computerScoreBox.removeChild(computerScoreDisplay);
+        computerScoreBox.appendChild(computerScoreDisplay);
+
+        finalResultBox.removeChild(newGameButton);
+        }
         game(playerSelection);
     }
     );
