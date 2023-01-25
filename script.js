@@ -13,6 +13,8 @@ computerScoreBox.appendChild(computerScoreDisplay);
 
 let finalResultBox = document.querySelector('#finalResult');
 let displayMessage = document.createElement('p');
+let displayChoice = document.createElement('p');
+finalResultBox.appendChild(displayChoice);
 finalResultBox.appendChild(displayMessage);
 let newGameButton = document.createElement('button');
 
@@ -39,6 +41,7 @@ function playRound(playerSelection) {
         case (playerSelection === "sasso" && computerSelection === "forbici"):
         case (playerSelection === "forbici" && computerSelection === "carta"):
         case (playerSelection === "carta" && computerSelection === "sasso"):
+            displayChoice.textContent = `${playerSelection} VS ${computerSelection}`;
             displayMessage.textContent = 'Hai vinto';
             playerScore += 1;
             playerScoreDisplay.textContent = `${playerScore}`;
@@ -50,6 +53,7 @@ function playRound(playerSelection) {
         case (playerSelection === "sasso" && computerSelection === "carta"):
         case (playerSelection === "carta" && computerSelection === "forbici"):
         case (playerSelection === "forbici" && computerSelection === "sasso"):
+            displayChoice.textContent = `${playerSelection} VS ${computerSelection}`;
             displayMessage.textContent = 'Hai perso';
             computerScore += 1;
             computerScoreDisplay.textContent = `${computerScore}`;
@@ -59,7 +63,8 @@ function playRound(playerSelection) {
             break;
         
         default:
-           displayMessage.textContent = 'Pareggio';
+            displayChoice.textContent = `${playerSelection} VS ${computerSelection}`;
+            displayMessage.textContent = 'Pareggio';
     }
 
 }
@@ -71,7 +76,7 @@ function game(playerSelection) {
         playRound(playerSelection);
 
 if (playerScore === 5) {
-
+    
     displayMessage.textContent = 'HAI VINTO!';
     //finalResultBox.appendChild(displayMessage);
 
@@ -83,6 +88,7 @@ if (playerScore === 5) {
         playerScore = 0;
         computerScore = 0;
         displayMessage.textContent = '';
+        displayChoice.textContent = '';
 
         playerScoreDisplay.textContent = `${playerScore}`;
         playerScoreBox.removeChild(playerScoreDisplay);
@@ -111,6 +117,7 @@ if (playerScore === 5) {
         playerScore = 0;
         computerScore = 0;
         displayMessage.textContent = '';
+        displayChoice.textContent = '';
 
         playerScoreDisplay.textContent = `${playerScore}`;
         playerScoreBox.removeChild(playerScoreDisplay);
